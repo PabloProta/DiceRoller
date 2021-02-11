@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 
@@ -11,42 +12,26 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val resultRoll : TextView = findViewById(R.id.result_roll)
-        val buttonRoll : Button = findViewById(R.id.btn_roll);
-        val buttoCount : Button = findViewById(R.id.btn_countUp);
-        buttonRoll.setOnClickListener{Roll(6,resultRoll)};
-        buttoCount.setOnClickListener{countUp(resultRoll)};
 
+
+        val buttonRoll : Button = findViewById(R.id.btn_roll)
+        buttonRoll.setOnClickListener { roll_Dice()  }
 
     }
-    private fun countUp(view: TextView){
 
-        val resultRoll = view.text.toString();
-        var resultCount = 0;
-        if(resultRoll.equals("Hello World!"))
-        {
-            resultCount = 1;
-            view.text = "${resultCount}";
-        }else{
-            if (resultRoll.toInt() < 6)
-            {
-                resultCount = 1 + resultRoll.toInt();
-                view.text = "${resultCount}";
-            }
-
+    private fun roll_Dice() {
+        val diceImage: ImageView = findViewById(R.id.dice_image)
+        val drawableResource = when ((1..6).random()){
+            1 -> R.drawable.dice_1
+            2 -> R.drawable.dice_2
+            3 -> R.drawable.dice_3
+            4 -> R.drawable.dice_4
+            5 -> R.drawable.dice_5
+            else -> R.drawable.dice_6
         }
 
 
-        Toast.makeText(this, "contador :${resultCount}",
-                Toast.LENGTH_SHORT).show()
+
+        diceImage.setImageResource(drawableResource)
     }
-
-    private fun Roll(sides: Int, view: TextView){
-        val numRandom = (1..sides).random();
-
-        view.text = "${numRandom}";
-
-
-    }
-
 }
